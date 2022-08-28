@@ -1,0 +1,4 @@
+-r requirements.txt
+python-dotenv~=0.20
+flake8
+flake8-quotes

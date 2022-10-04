@@ -49,8 +49,7 @@ def download_image(url: str, local_path: Path):
     """Download remote url to local path."""
     image_data = requests.get(url).content
     try:
-        with open(local_path, 'wb') as f:
-            f.write(image_data)
+        Path(local_path).write_bytes(image_data)
     except Exception as e:
         local_path.unlink(missing_ok=True)
         raise e
@@ -75,7 +74,7 @@ def assemble_gif():
 def convert_bytes(byte_count):
     """Convert bytes to human readable formats."""
     unit_size = 1024.0
-    for unit in ['bytes', 'kb', 'mb', 'gb', 'tb']:
+    for unit in ('bytes', 'kb', 'mb', 'gb', 'tb'):
         if byte_count < unit_size:
             return "%3.1f %s" % (byte_count, unit)
         byte_count /= unit_size
@@ -148,7 +147,7 @@ def get_normalized_image(filename):
     raise Exception(
         'Unexpected image type:'
         f' {image.mode} {image.size} '
-        f'for {str(filename)}'
+        f'for {filename}'
     )
 
 
